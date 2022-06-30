@@ -20,4 +20,13 @@ public class HealfSystemPL : MonoBehaviour
     {
         image.fillAmount = healf/maxHeafl;
     }
+
+
+
+
+    public void TakeDamage(float damage)
+    {
+
+        healf -= damage;
+    }
 }

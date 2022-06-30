@@ -29,16 +29,38 @@ public class Enemy_base : MonoBehaviour
     Rigidbody2D rb;
    public State Curretstate;
 
+
+    KnockBack knockBack;
+
+
+    Animator animator;
+
+
+   public bool attacking; 
+
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
+
+        knockBack = FindObjectOfType<KnockBack>();
+
+
+        animator = GetComponent<Animator>();
     }
 
 
     private void FixedUpdate()
     {
         CheckDis();
+
+
+        if (healf<=0)
+        {
+            DEs();
+        }
+
+       
     }
 
 
@@ -46,13 +68,33 @@ public class Enemy_base : MonoBehaviour
     {
         if (Vector3.Distance(target.position, transform.position) <= ChaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius)
         {
-            if (Curretstate ==State.idle|| Curretstate == State.walk && Curretstate != State.stagger)
+            if ( Curretstate != State.stagger)
             {
                 Vector3 temp = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
                 rb.MovePosition(temp);
                 ChangeState(State.walk);
+                animator.SetBool("IsWakeUp", true);
+
+                changeAnimWalk(temp - transform.position);
+                animator.SetBool("Attack", false);
+
             }
-           
+
+
+        }
+
+        else if (Vector3.Distance(target.position, transform.position) <= attackRadius)
+        {
+            ChangeState(State.attack);
+            animator.SetBool("Attack", true);
+
+        }
+        else if(Vector3.Distance(target.position, transform.position) > ChaseRadius)
+        {
+            ChangeState(State.idle);
+            animator.SetBool("IsWakeUp", false);
+            animator.SetBool("Attack", false);
+
 
         }
     }
@@ -66,4 +108,61 @@ public class Enemy_base : MonoBehaviour
 
     }
 
+
+    void setVector(Vector2 set)
+    {
+
+        animator.SetFloat("moveX", set.x);
+        animator.SetFloat("moveY", set.y);
+
+
+    }
+
+    void changeAnimWalk(Vector2 direction)
+    {
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            if (direction.x > 0)
+            {
+                setVector(Vector2.right);
+            }
+            else if (direction.x < 0)
+            {
+                setVector(Vector2.left);
+
+            }
+        }
+        else if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+        {
+            if (direction.y > 0)
+            {
+                setVector(Vector2.up);
+
+            }
+            else if (direction.y < 0)
+            {
+                setVector(Vector2.down);
+
+            }
+        }
+        
+        
+
+    }
+
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && Curretstate == State.attack && attacking)
+        {
+            HealfSystemPL healfSystemPL = collision.GetComponent<HealfSystemPL>();
+            healfSystemPL.TakeDamage(damage);
+        }
+    }
+
+    public void DEs()
+    {
+        Destroy(gameObject);
+    }
+    
 }
