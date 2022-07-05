@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1138989551
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 8213902188476598959, guid: 5b3fa51c3c1bc1240b5cf9bc568d6832,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -117,14 +117,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e328c8245dfda0408b32e3d30f5e592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EXP: 1
   healf: 5
   speed: 3
-  damage: 2
+  damage: 1
   attackRadius: 1.2
   ChaseRadius: 5
   Home: {fileID: 0}
   Curretstate: 0
   attacking: 0
+  Pl: {fileID: 0}
 --- !u!50 &10326688822567521
 Rigidbody2D:
   serializedVersion: 4
@@ -159,7 +161,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.067429066, y: -0.09497666}
+  m_Offset: {x: -0.03722143, y: -0.09497666}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.46627316, y: 0.41689605}
@@ -170,5 +172,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5844927, y: 0.52385855}
+  m_Size: {x: 0.3629675, y: 0.52385855}
   m_EdgeRadius: 0

@@ -26,6 +26,7 @@ public class SlotEqpetment : MonoBehaviour, IDropHandler
     ItemEqpent itemEqpent;
 
 
+
  
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
@@ -78,6 +79,8 @@ public class SlotEqpetment : MonoBehaviour, IDropHandler
 
            playerAttack.PhyDamage += itemEqpent.PhysicsDamage;
             PhysicsDamage = itemEqpent.PhysicsDamage;
+
+
         }
 
             else

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+
+
+    HealfSystemPL systemPL;
    public enum State
     {
 
@@ -15,19 +18,26 @@ public class PlayerMove : MonoBehaviour
     public State cuuretState; 
     Rigidbody2D rb;
 
-   private Vector3 movement;
+   public Vector3 movement;
 
 
     public float speed;
 
 
     Animator animator;
+
+
+    WarrioeSpellsMG spellsMG;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         cuuretState = State.walk;
+        systemPL = GetComponent<HealfSystemPL>();
+        spellsMG = GetComponent<WarrioeSpellsMG>();
     }
     private void Update()
     {
@@ -39,9 +49,11 @@ public class PlayerMove : MonoBehaviour
 
 
 
-        if (Input.GetButtonDown("attack") && cuuretState!= State.fight)
+        if (Input.GetButtonDown("attack") && cuuretState!= State.fight && systemPL.endurance>0)
         {
             StartCoroutine(AttackCo());
+            systemPL.UseEndurance(1);
+           
         }
 
        else if (cuuretState == State.walk )
@@ -77,6 +89,10 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("attack", true);
         cuuretState = State.fight;
         yield return null;
+        if (spellsMG.isKriting)
+        {
+            spellsMG.isKriting = false;
+        }
         animator.SetBool("attack", false);
         yield return new WaitForSeconds(.33f);
         cuuretState = State.walk;

@@ -5,6 +5,12 @@ using TMPro;
 public class PlayerVaribies : MonoBehaviour
 {
 
+    public int lvl;
+    public int exp;
+    public int needExp;
+
+
+
     public static bool isWalking,isJumping;
     public static bool Attaking;
 
@@ -50,12 +56,26 @@ public class PlayerVaribies : MonoBehaviour
         SmartText.text = "Интелект : " + smarts.ToString();
         AgiglityText.text = "Ловкость : " + agility.ToString();
 
+
+        if (exp >= needExp)
+        {
+            LevelUP();
+        }
+
+
     }
 
 
    
     
+    void LevelUP()
+    {
+        exp -= needExp;
+        needExp = lvl * 5;
+        lvl++;
+        
 
+    }
     
     }
    

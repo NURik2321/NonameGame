@@ -6,6 +6,13 @@ TagManager:
   tags:
   - HitPl
   - Enemy
+  - InvertoryManager
+  - Item
+  - TextStrong
+  - TextSmart
+  - TextAgility
+  - Shield
+  - PlayerHitingZona
   layers:
   - Default
   - TransparentFX

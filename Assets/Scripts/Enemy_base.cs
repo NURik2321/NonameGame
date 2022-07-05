@@ -13,8 +13,8 @@ public class Enemy_base : MonoBehaviour
     }
 
 
-    
 
+    public int EXP;
     public float healf;
     public float speed;
     public float damage;
@@ -36,7 +36,9 @@ public class Enemy_base : MonoBehaviour
     Animator animator;
 
 
-   public bool attacking; 
+   public bool attacking;
+
+    public GameObject Pl;
 
     private void Start()
     {
@@ -158,11 +160,38 @@ public class Enemy_base : MonoBehaviour
             HealfSystemPL healfSystemPL = collision.GetComponent<HealfSystemPL>();
             healfSystemPL.TakeDamage(damage);
         }
+
+        else if (collision.CompareTag("Shield" )&&Curretstate == State.attack && attacking)
+        {
+            Shield shield = collision.GetComponent<Shield>();
+            shield.TakeDamge(damage);
+        }
     }
 
     public void DEs()
     {
         Destroy(gameObject);
+
+        //if (Pl.CompareTag("Player"))
+        //{
+        //    PlayerVaribies playerVaribies = Pl.GetComponent<PlayerVaribies>();
+        //    playerVaribies.exp += EXP;
+        //}
     }
-    
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("HitPl"))
+        {
+            PlayerMove player = collision.GetComponentInParent<PlayerMove>();
+            PlayerAttack playerAttack = collision.GetComponentInParent<PlayerAttack>();
+            if (player.cuuretState == PlayerMove.State.fight)
+            {
+                healf -= playerAttack.PhyDamage;
+            }
+           
+
+        }
+    }
 }
