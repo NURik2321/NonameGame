@@ -24,7 +24,10 @@ public class PlayerMove : MonoBehaviour
     public float speed;
 
 
-    Animator animator;
+    public  Animator animator;
+    public string AnimatorPath;
+
+    public RuntimeAnimatorController animatorController;
 
 
     WarrioeSpellsMG spellsMG;
@@ -38,6 +41,7 @@ public class PlayerMove : MonoBehaviour
         cuuretState = State.walk;
         systemPL = GetComponent<HealfSystemPL>();
         spellsMG = GetComponent<WarrioeSpellsMG>();
+
     }
     private void Update()
     {

@@ -40,6 +40,9 @@ public class Enemy_base : MonoBehaviour
 
     public GameObject Pl;
 
+
+
+    public bool IfFires;
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;

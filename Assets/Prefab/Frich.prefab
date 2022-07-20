@@ -127,6 +127,7 @@ MonoBehaviour:
   Curretstate: 0
   attacking: 0
   Pl: {fileID: 0}
+  IfFires: 0
 --- !u!50 &10326688822567521
 Rigidbody2D:
   serializedVersion: 4
